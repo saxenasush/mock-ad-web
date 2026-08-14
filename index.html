@@ -517,258 +517,184 @@
         let expandedIds = new Set();
         let selectedId = null;
 
-        let adData = {
+let adData = {
             "Name": "metcash.com.au",
             "Type": "Domain",
-            "Description": "",
+            "Description": "Metcash Active Directory Domain Tiered Administrative Hierarchy",
             "Children": [
                 {
-                    "Name": "Tier 0",
+                    "Name": "Admin",
                     "Type": "OU",
-                    "Description": "# Tier 0 - Identity & Control Plane\r\n\r\n## What lives here:\r\n\r\n| Category        | Item                          | Description / Rule                                      |\r\n|----------------|-------------------------------|----------------------------------------------------------|\r\n| Machine        | Domain Controllers            | Core AD authentication and authorization                 |\r\n| Machine        | ADCS                          | Certificate services for identity infrastructure         |\r\n| Machine        | ADFS                          | Federation and claims-based authentication               |\r\n| Machine        | Azure AD Connect              | Syncs on-prem AD with Entra ID                           |\r\n| Machine        | Cisco DUO Proxy Servers       | MFA integration for authentication flows                 |\r\n| Machine        | Privileged Access Workstations| Hardened admin-only systems for Tier 0 access            |\r\n| Account/Group  | Domain Admins                 | Full control over domain                                 |\r\n| Account/Group  | Enterprise Admins             | Forest-wide administrative control                       |\r\n| Account/Group  | Schema Admins                 | Control over AD schema                                   |\r\n| Policy         | Tier Isolation                | Block access from lower tiers                            |\r\n| Policy         | Internet Restrictions         | No web browsing or email allowed                         |\r\n\r\n### Machines\r\n* Domain Controllers\r\n* ADCS\r\n* ADFS\r\n* Azure AD Connect\r\n* Cisco DUO Proxy Servers\r\n* Privileged Access Workstations (PAWs)\r\n    * Utilized only by assigned users\r\n\r\n### Accounts/Groups\r\n* Domain Admins\r\n* Enterprise Admins\r\n* Schema Admins\r\n\r\n### Policies\r\n* Prevent access from lower tiers\r\n* Prevent web browsing\r\n* etc.\r\n\r\n## Rules\r\n\u274C Never log into Tier 0 from lower tiers\r\n\r\n\u274C No internet browsing/email from Tier 0 systems\r\n\r\n\u2705 Only log in from hardened PAWs\r\n\r\n\u2705 Separate admin accounts (no dual-use)",
+                    "Description": "# Admin - Top-Level Administrative OU\r\n\r\nThis top-level Organizational Unit contains all tiered administrative structures, privileged jump hosts, tier-specific GPOs, and service identities for Metcash and IHG operations.\r\n\r\n## Contained Tiers:\r\n* **Tier 0:** Identity Control Plane (DCs, ADCS, Entra Connect, T0 Admins/PAWs)\r\n* **Tier 1:** Enterprise Servers & Applications (App, DB, LOB Servers, T1 Admins)\r\n* **Tier 2:** End-User Devices & Support (Workstations, Device Support)\r\n* **Tier 4:** Non-Privileged Identities & General Workloads",
                     "Children": [
                         {
-                            "Name": "Tier 0 Access Policy",
-                            "Type": "GPO",
-                            "Description": "",
-                            "Children": []
-                        },
-                        {
-                            "Name": "Computers",
+                            "Name": "Tier 0",
                             "Type": "OU",
-                            "Description": "",
+                            "Description": "# Tier 0 - Identity & Control Plane\r\n\r\n## What lives here:\r\n\r\n| Category | Item | Description / Rule |\r\n|---|---|---|\r\n| Machine | Domain Controllers | Core AD authentication and authorization |\r\n| Machine | ADCS | Certificate services for identity infrastructure |\r\n| Machine | Entra Connect | Syncs on-prem AD with Entra ID |\r\n| Machine | Privileged Access Workstations | Hardened admin-only systems for Tier 0 access |\r\n| Account/Group | Domain Admins | Full control over domain |\r\n| Account/Group | Enterprise Admins | Forest-wide administrative control |\r\n| Policy | Tier 0 Access Policy | Block access from lower tiers & enable FAST Kerberos Armoring |\r\n\r\n## Rules\r\n\u274C Never log into Tier 0 from lower tiers\r\n\u274C No internet browsing/email from Tier 0 systems\r\n\u2705 Only log in from hardened PAWs\r\n\u2705 Separate admin accounts (d-username convention)",
                             "Children": [
                                 {
-                                    "Name": "CORP-PAW-T0-jdoe",
-                                    "Type": "Computer",
-                                    "Description": "",
+                                    "Name": "Tier 0 Access Policy",
+                                    "Type": "GPO",
+                                    "Description": "Kerberos Armoring & Cross-Tier Audit Policy",
                                     "Children": []
                                 },
                                 {
-                                    "Name": "CORP-PAW-T0-jsmith",
-                                    "Type": "Computer",
-                                    "Description": "",
-                                    "Children": []
-                                }
-                            ]
-                        },
-                        {
-                            "Name": "Groups",
-                            "Type": "OU",
-                            "Description": "",
-                            "Children": [
-                                {
-                                    "Name": "Access-T0",
-                                    "Type": "Group",
-                                    "Description": "",
+                                    "Name": "Computers",
+                                    "Type": "OU",
+                                    "Description": "Tier 0 PAWs and Jump Hosts",
                                     "Children": [
                                         {
-                                            "Name": "t0-jdoe",
-                                            "Type": "User",
-                                            "Description": "",
-                                            "Children": []
-                                        },
-                                        {
-                                            "Name": "t0-jsmith",
-                                            "Type": "User",
-                                            "Description": "",
+                                            "Name": "MET-PAW-T0-01",
+                                            "Type": "Computer",
+                                            "Description": "Tier 0 Privileged Access Workstation",
                                             "Children": []
                                         }
                                     ]
                                 },
                                 {
-                                    "Name": "Domain Admins",
-                                    "Type": "Group",
-                                    "Description": "",
+                                    "Name": "Groups",
+                                    "Type": "OU",
+                                    "Description": "Tier 0 Administrative Groups",
                                     "Children": [
                                         {
-                                            "Name": "t0-jdoe",
-                                            "Type": "User",
-                                            "Description": "",
-                                            "Children": []
+                                            "Name": "Access-T0-Admins",
+                                            "Type": "Group",
+                                            "Description": "Security group for Tier 0 interactive logins",
+                                            "Children": [
+                                                {
+                                                    "Name": "d-jsmith",
+                                                    "Type": "User",
+                                                    "Description": "Tier 0 Administrator",
+                                                    "Children": []
+                                                }
+                                            ]
                                         },
-                                        {
-                                            "Name": "t0-jsmith",
-                                            "Type": "User",
-                                            "Description": "",
-                                            "Children": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "Name": "Enterprise Admins",
-                                    "Type": "Group",
-                                    "Description": "",
-                                    "Children": [
                                         {
                                             "Name": "Domain Admins",
                                             "Type": "Group",
-                                            "Description": "",
+                                            "Description": "Native AD Built-in Group",
                                             "Children": []
                                         }
                                     ]
                                 },
                                 {
-                                    "Name": "Schema Admins",
-                                    "Type": "Group",
-                                    "Description": "",
+                                    "Name": "Servers",
+                                    "Type": "OU",
+                                    "Description": "Identity Control Plane Servers",
                                     "Children": [
                                         {
-                                            "Name": "Domain Admins",
+                                            "Name": "MET-DC-01",
+                                            "Type": "Computer",
+                                            "Description": "Domain Controller",
+                                            "Children": []
+                                        },
+                                        {
+                                            "Name": "MET-CA-01",
+                                            "Type": "Computer",
+                                            "Description": "ADCS Certificate Authority",
+                                            "Children": []
+                                        },
+                                        {
+                                            "Name": "MET-SYNC-01",
+                                            "Type": "Computer",
+                                            "Description": "Entra Connect Server",
+                                            "Children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "Name": "Service Accounts",
+                                    "Type": "OU",
+                                    "Description": "Tier 0 Managed Service Accounts",
+                                    "Children": [
+                                        {
+                                            "Name": "svc-identity-gmsa$",
+                                            "Type": "GMSA",
+                                            "Description": "Group Managed Service Account for Identity Services",
+                                            "Children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "Name": "Users",
+                                    "Type": "OU",
+                                    "Description": "Tier 0 Interactive Admin Accounts (d-username)",
+                                    "Children": [
+                                        {
+                                            "Name": "d-jsmith",
+                                            "Type": "User",
+                                            "Description": "Tier 0 Administrative Account",
+                                            "Children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Tier 1",
+                            "Type": "OU",
+                            "Description": "# Tier 1 - Enterprise Server & Application Management\r\n\r\nContains member servers, application infrastructure, and the administrative identities that manage them.",
+                            "Children": [
+                                {
+                                    "Name": "Tier 1 Access Policy",
+                                    "Type": "GPO",
+                                    "Description": "Tier 1 Logon Audit & Security Restrictions",
+                                    "Children": []
+                                },
+                                {
+                                    "Name": "Computers",
+                                    "Type": "OU",
+                                    "Description": "Tier 1 Application and Database Servers",
+                                    "Children": [
+                                        {
+                                            "Name": "MET-APP-01",
+                                            "Type": "Computer",
+                                            "Description": "Line of Business Server",
+                                            "Children": []
+                                        },
+                                        {
+                                            "Name": "MET-SQL-01",
+                                            "Type": "Computer",
+                                            "Description": "Database Server",
+                                            "Children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "Name": "Groups",
+                                    "Type": "OU",
+                                    "Description": "Tier 1 Server Administration Groups",
+                                    "Children": [
+                                        {
+                                            "Name": "Access-T1-Admins",
                                             "Type": "Group",
-                                            "Description": "",
+                                            "Description": "Tier 1 Administrator Access Group",
                                             "Children": []
                                         }
                                     ]
-                                }
-                            ]
-                        },
-                        {
-                            "Name": "Servers",
-                            "Type": "OU",
-                            "Description": "",
-                            "Children": [
-                                {
-                                    "Name": "CORP-CA-01",
-                                    "Type": "Computer",
-                                    "Description": "",
-                                    "Children": []
                                 },
                                 {
-                                    "Name": "CORP-CA-02",
-                                    "Type": "Computer",
-                                    "Description": "",
-                                    "Children": []
-                                },
-                                {
-                                    "Name": "CORP-DC-01",
-                                    "Type": "Computer",
-                                    "Description": "",
-                                    "Children": []
-                                },
-                                {
-                                    "Name": "CORP-DC-02",
-                                    "Type": "Computer",
-                                    "Description": "",
-                                    "Children": []
-                                },
-                                {
-                                    "Name": "CORP-ENTRACONNECT-01",
-                                    "Type": "Computer",
-                                    "Description": "",
-                                    "Children": []
-                                },
-                                {
-                                    "Name": "CORP-ENTRACONNECT-02",
-                                    "Type": "Computer",
-                                    "Description": "",
-                                    "Children": []
-                                }
-                            ]
-                        },
-                        {
-                            "Name": "Service Accounts",
-                            "Type": "OU",
-                            "Description": "",
-                            "Children": [
-                                {
-                                    "Name": "svc-backup",
-                                    "Type": "GMSA",
-                                    "Description": "",
-                                    "Children": []
-                                },
-                                {
-                                    "Name": "svc-identity",
-                                    "Type": "GMSA",
-                                    "Description": "",
-                                    "Children": []
-                                }
-                            ]
-                        },
-                        {
-                            "Name": "Users",
-                            "Type": "OU",
-                            "Description": "",
-                            "Children": [
-                                {
-                                    "Name": "t0-jdoe",
-                                    "Type": "User",
-                                    "Description": "",
-                                    "Children": []
-                                },
-                                {
-                                    "Name": "t0-jsmith",
-                                    "Type": "User",
-                                    "Description": "",
-                                    "Children": []
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "Name": "Tier 1",
-                    "Type": "OU",
-                    "Description": "",
-                    "Children": [
-                        {
-                            "Name": "Tier 1 Access Policy",
-                            "Type": "GPO",
-                            "Description": "",
-                            "Children": []
-                        },
-                        {
-                            "Name": "Computers",
-                            "Type": "OU",
-                            "Description": "",
-                            "Children": [
-                                {
-                                    "Name": "CORP-APP-01",
-                                    "Type": "Computer",
-                                    "Description": "",
-                                    "Children": []
-                                }
-                            ]
-                        },
-                        {
-                            "Name": "Groups",
-                            "Type": "OU",
-                            "Description": "",
-                            "Children": [
-                                {
-                                    "Name": "Access-T1",
-                                    "Type": "Group",
-                                    "Description": "",
+                                    "Name": "Service Accounts",
+                                    "Type": "OU",
+                                    "Description": "Tier 1 gMSAs and Service Accounts",
                                     "Children": [
                                         {
-                                            "Name": "t1-jdoe",
-                                            "Type": "User",
-                                            "Description": "",
-                                            "Children": []
-                                        },
-                                        {
-                                            "Name": "t1-jsmith",
-                                            "Type": "User",
-                                            "Description": "",
-                                            "Children": []
-                                        },
-                                        {
-                                            "Name": "t1-mchief",
-                                            "Type": "User",
-                                            "Description": "",
+                                            "Name": "svc-app-gmsa$",
+                                            "Type": "GMSA",
+                                            "Description": "LOB Application Service Account",
                                             "Children": []
                                         }
                                     ]
                                 },
                                 {
-                                    "Name": "Application Administrators",
-                                    "Type": "Group",
-                                    "Description": "",
+                                    "Name": "Users",
+                                    "Type": "OU",
+                                    "Description": "Tier 1 Interactive Admin Accounts (a-username)",
                                     "Children": [
                                         {
-                                            "Name": "t1-mchief",
+                                            "Name": "a-jsmith",
                                             "Type": "User",
-                                            "Description": "",
+                                            "Description": "Tier 1 Server Administrator",
                                             "Children": []
                                         }
                                     ]
@@ -776,109 +702,78 @@
                             ]
                         },
                         {
-                            "Name": "Service Accounts",
+                            "Name": "Tier 2",
                             "Type": "OU",
-                            "Description": "",
+                            "Description": "# Tier 2 - End-User Devices & Support\r\n\r\nContains end-user workstations, laptops, and administrative roles focused on desktop/device support.",
                             "Children": [
                                 {
-                                    "Name": "svc-ldap",
-                                    "Type": "GMSA",
-                                    "Description": "",
+                                    "Name": "Tier 2 Access Policy",
+                                    "Type": "GPO",
+                                    "Description": "Tier 2 Device Baseline Policy",
+                                    "Children": []
+                                },
+                                {
+                                    "Name": "Computers",
+                                    "Type": "OU",
+                                    "Description": "Helpdesk & Administration Workstations",
+                                    "Children": []
+                                },
+                                {
+                                    "Name": "Groups",
+                                    "Type": "OU",
+                                    "Description": "Tier 2 Workstation Support Groups",
+                                    "Children": []
+                                },
+                                {
+                                    "Name": "Users",
+                                    "Type": "OU",
+                                    "Description": "Tier 2 Workstation Administrator Accounts",
                                     "Children": []
                                 }
                             ]
                         },
                         {
-                            "Name": "Users",
+                            "Name": "Tier 4",
                             "Type": "OU",
-                            "Description": "",
+                            "Description": "# Tier 4 - Non-Privileged & Standard User Plane\r\n\r\nContains standard non-privileged end-user accounts and general workstations. Entra Connect sync scope is explicitly filtered to include only Tier 4 user OUs.",
                             "Children": [
                                 {
-                                    "Name": "t1-jdoe",
-                                    "Type": "User",
-                                    "Description": "",
+                                    "Name": "Tier 4 Access Policy",
+                                    "Type": "GPO",
+                                    "Description": "Standard User Baseline GPO",
                                     "Children": []
                                 },
                                 {
-                                    "Name": "t1-jsmith",
-                                    "Type": "User",
-                                    "Description": "",
+                                    "Name": "Computers",
+                                    "Type": "OU",
+                                    "Description": "Standard Corporate Workstations & Laptops",
+                                    "Children": [
+                                        {
+                                            "Name": "MET-LAPTOP-102",
+                                            "Type": "Computer",
+                                            "Description": "Standard End-User Device",
+                                            "Children": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "Name": "Groups",
+                                    "Type": "OU",
+                                    "Description": "Standard Business Unit Security Groups",
                                     "Children": []
                                 },
                                 {
-                                    "Name": "t1-mchief",
-                                    "Type": "User",
-                                    "Description": "",
-                                    "Children": []
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "Name": "Tier 2",
-                    "Type": "OU",
-                    "Description": "",
-                    "Children": [
-                        {
-                            "Name": "Tier 2 Access Policy",
-                            "Type": "GPO",
-                            "Description": "",
-                            "Children": []
-                        },
-                        {
-                            "Name": "Computers",
-                            "Type": "OU",
-                            "Description": "",
-                            "Children": [
-                                {
-                                    "Name": "CORP-LAPTOP-1",
-                                    "Type": "Computer",
-                                    "Description": "",
-                                    "Children": []
-                                }
-                            ]
-                        },
-                        {
-                            "Name": "Groups",
-                            "Type": "OU",
-                            "Description": "",
-                            "Children": []
-                        },
-                        {
-                            "Name": "Users",
-                            "Type": "OU",
-                            "Description": "",
-                            "Children": [
-                                {
-                                    "Name": "jdoe",
-                                    "Type": "User",
-                                    "Description": "",
-                                    "Children": []
-                                },
-                                {
-                                    "Name": "jsmith",
-                                    "Type": "User",
-                                    "Description": "",
-                                    "Children": []
-                                },
-                                {
-                                    "Name": "mchief",
-                                    "Type": "User",
-                                    "Description": "",
-                                    "Children": []
-                                },
-                                {
-                                    "Name": "mjane",
-                                    "Type": "User",
-                                    "Description": "",
-                                    "Children": []
-                                },
-                                {
-                                    "Name": "pwhite",
-                                    "Type": "User",
-                                    "Description": "",
-                                    "Children": []
+                                    "Name": "Users",
+                                    "Type": "OU",
+                                    "Description": "Standard Non-Privileged User Accounts (Synced to Entra ID)",
+                                    "Children": [
+                                        {
+                                            "Name": "jsmith",
+                                            "Type": "User",
+                                            "Description": "Standard User Identity",
+                                            "Children": []
+                                        }
+                                    ]
                                 }
                             ]
                         }
