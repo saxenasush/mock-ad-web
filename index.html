@@ -660,7 +660,7 @@ let adData = {
                                     "Children": []
                                 },
                                 {
-                                    "Name": "Computers",
+                                    "Name": "Servers",
                                     "Type": "OU",
                                     "Description": "Tier 1 Application and Database Servers",
                                     "Children": [
@@ -679,6 +679,25 @@ let adData = {
                                     ]
                                 },
                                 {
+                                    "Name": "Computers",
+                                    "Type": "OU",
+                                    "Description": "Tier 1 PAWs and Jump Hosts",
+                                    "Children": [
+                                        {
+                                            "Name": "MET-PAW-T1-01",
+                                            "Type": "Computer",
+                                            "Description": "Tier 1 Privileged Access Workstation",
+                                            "Children": []
+                                        },
+                                        {
+                                            "Name": "MET-PAW-T1-02",
+                                            "Type": "Computer",
+                                            "Description": "Tier 1 Privileged Access Workstation",
+                                            "Children": []
+                                        }
+                                    ]
+                                },                                
+                                {
                                     "Name": "Groups",
                                     "Type": "OU",
                                     "Description": "Tier 1 Server Administration Groups",
@@ -687,7 +706,14 @@ let adData = {
                                             "Name": "Access-T1-Admins",
                                             "Type": "Group",
                                             "Description": "Tier 1 Administrator Access Group",
-                                            "Children": []
+                                            "Children": [
+                                                {
+                                                    "Name": "a-scholwi",
+                                                    "Type": "User",
+                                                    "Description": "Tier 1 Administrator",
+                                                    "Children": []
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
