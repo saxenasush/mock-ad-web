@@ -603,19 +603,19 @@ let adData = {
                                         {
                                             "Name": "Domain Admins",
                                             "Type": "Group",
-                                            "Description": "Native AD Built-in Group",
+                                            "Description": "Native AD Built-in Group - NOTE: this will remain in default container to prevent breaking AD Schema defaults. Custom Tier access group Access-T0-Admins will reside inside the new OU Structure.",
                                             "Children": []
                                         },
                                         {
                                             "Name": "Enterprise Admins",
                                             "Type": "Group",
-                                            "Description": "Native AD Built-in Group",
+                                            "Description": "Native AD Built-in Group - NOTE: this will remain in default container to prevent breaking AD Schema defaults. Custom Tier access group Access-T0-Admins will reside inside the new OU Structure.",
                                             "Children": []
                                         },                                        
                                         {
                                             "Name": "Schema Admins",
                                             "Type": "Group",
-                                            "Description": "Native AD Built-in Group",
+                                            "Description": "Native AD Built-in Group - NOTE: this will remain in default container to prevent breaking AD Schema defaults. Custom Tier access group Access-T0-Admins will reside inside the new OU Structure.",
                                             "Children": []
                                         }
                                     ]
@@ -917,7 +917,7 @@ let adData = {
                                 {
                                     "Name": "Users",
                                     "Type": "OU",
-                                    "Description": "Standard Non-Privileged User Accounts (Synced to Entra ID)",
+                                    "Description": "Standard Non-Privileged User Accounts (Synced to Entra ID). Admin accounts residing in Tiers 0,1,2 will remain strictly un-synced to the cloud plane from these OUs.",
                                     "Children": [
                                         {
                                             "Name": "jsmith",
