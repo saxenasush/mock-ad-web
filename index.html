@@ -722,7 +722,7 @@ let adData = {
                                             ]   
                                         },
                                         {
-                                            "Name": "T1 Server Admins",
+                                            "Name": "Server Admins",
                                             "Type": "Group",
                                             "Description": "T1 Server Admin Group",
                                             "Children": []
@@ -829,7 +829,7 @@ let adData = {
                                             "Description": "Tier 2 Administrator Access Group",
                                             "Children": [
                                                 {
-                                                    "Name": "john.bruce",
+                                                    "Name": "jake.bruce",
                                                     "Type": "User",
                                                     "Description": "Tier 2 Administrator",
                                                     "Children": []
@@ -837,7 +837,7 @@ let adData = {
                                             ]   
                                         },
                                         {
-                                            "Name": "T2 Support Admins",
+                                            "Name": "Support Admins",
                                             "Type": "Group",
                                             "Description": "T2 Device/Desktop Support Admin Group",
                                             "Children": []
@@ -848,7 +848,20 @@ let adData = {
                                     "Name": "Users",
                                     "Type": "OU",
                                     "Description": "Tier 2 Workstation Administrator Accounts",
-                                    "Children": []
+                                    "Children": [
+                                        {
+                                            "Name": "j.smith",
+                                            "Type": "User",
+                                            "Description": "Tier 1 Server Administrator",
+                                            "Children": []
+                                        },
+                                        {
+                                            "Name": "s.saxena",
+                                            "Type": "User",
+                                            "Description": "Tier 1 Server Administrator",
+                                            "Children": []
+                                        }                                          
+                                    ]
                                 }
                             ]
                         },
@@ -869,18 +882,37 @@ let adData = {
                                     "Description": "Standard Corporate Workstations & Laptops",
                                     "Children": [
                                         {
-                                            "Name": "MET-LAPTOP-102",
+                                            "Name": "MET-LAPTOP-100",
                                             "Type": "Computer",
                                             "Description": "Standard End-User Device",
                                             "Children": []
-                                        }
+                                        },
+                                        {
+                                            "Name": "MET-LAPTOP-101",
+                                            "Type": "Computer",
+                                            "Description": "Standard End-User Device",
+                                            "Children": []
+                                        },
+                                        {
+                                            "Name": "MET-DESKTOP-500",
+                                            "Type": "Computer",
+                                            "Description": "Standard End-User Device",
+                                            "Children": []
+                                        }                                        
                                     ]
                                 },
                                 {
                                     "Name": "Groups",
                                     "Type": "OU",
                                     "Description": "Standard Business Unit Security Groups",
-                                    "Children": []
+                                    "Children": [
+                                        {
+                                            "Name": "Domain Users",
+                                            "Type": "Group",
+                                            "Description": "Domain Users Group",
+                                            "Children": []
+                                        }                                         
+                                    ]
                                 },
                                 {
                                     "Name": "Users",
