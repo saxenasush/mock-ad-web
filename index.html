@@ -539,6 +539,31 @@ let adData = {
                                     "Children": []
                                 },
                                 {
+                                    "Name": "Servers",
+                                    "Type": "OU",
+                                    "Description": "Identity Control Plane Servers",
+                                    "Children": [
+                                        {
+                                            "Name": "MET-DC-01",
+                                            "Type": "Computer",
+                                            "Description": "Domain Controller",
+                                            "Children": []
+                                        },
+                                        {
+                                            "Name": "MET-ADCS-01",
+                                            "Type": "Computer",
+                                            "Description": "ADCS Certificate Authority",
+                                            "Children": []
+                                        },
+                                        {
+                                            "Name": "MET-SYNC-01",
+                                            "Type": "Computer",
+                                            "Description": "Entra Connect Server",
+                                            "Children": []
+                                        }
+                                    ]
+                                },                                
+                                {
                                     "Name": "Computers",
                                     "Type": "OU",
                                     "Description": "Tier 0 PAWs and Jump Hosts",
@@ -585,31 +610,6 @@ let adData = {
                                             "Name": "Schema Admins",
                                             "Type": "Group",
                                             "Description": "Native AD Built-in Group",
-                                            "Children": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "Name": "Servers",
-                                    "Type": "OU",
-                                    "Description": "Identity Control Plane Servers",
-                                    "Children": [
-                                        {
-                                            "Name": "MET-DC-01",
-                                            "Type": "Computer",
-                                            "Description": "Domain Controller",
-                                            "Children": []
-                                        },
-                                        {
-                                            "Name": "MET-ADCS-01",
-                                            "Type": "Computer",
-                                            "Description": "ADCS Certificate Authority",
-                                            "Children": []
-                                        },
-                                        {
-                                            "Name": "MET-SYNC-01",
-                                            "Type": "Computer",
-                                            "Description": "Entra Connect Server",
                                             "Children": []
                                         }
                                     ]
