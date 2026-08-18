@@ -530,7 +530,7 @@ let adData = {
                         {
                             "Name": "Tier 0",
                             "Type": "OU",
-                            "Description": "# Tier 0 - Identity & Control Plane\r\n\r\n## What lives here:\r\n\r\n| Category | Item | Description / Rule |\r\n|---|---|---|\r\n| Machine | Domain Controllers | Core AD authentication and authorization |\r\n| Machine | ADCS | Certificate services for identity infrastructure |\r\n| Machine | Entra Connect | Syncs on-prem AD with Entra ID |\r\n| Machine | Privileged Access Workstations | Hardened admin-only systems for Tier 0 access |\r\n| Account/Group | Domain Admins | Full control over domain |\r\n| Account/Group | Enterprise Admins | Forest-wide administrative control |\r\n| Policy | Tier 0 Access Policy | Block access from lower tiers & enable FAST Kerberos Armoring |\r\n\r\n## Rules\r\n\u274C Never log into Tier 0 from lower tiers\r\n\u274C No internet browsing/email from Tier 0 systems\r\n\u2705 Only log in from hardened PAWs\r\n\u2705 Separate admin accounts (d-username convention)",
+                            "Description": "# Tier 0 - Identity & Control Plane\r\n\r\n## What lives here:\r\n\r\n| Category | Item | Description / Rule |\r\n|---|---|---|\r\n| Machine | Domain Controllers | Core AD authentication and authorization |\r\n| Machine | ADCS | Certificate services for identity infrastructure |\r\n| Machine | Entra Connect | Syncs on-prem AD with Entra ID |\r\n| Machine | Privileged Access Workstations | Hardened admin-only systems for Tier 0 access |\r\n| Account/Group | Domain Admins | Full control over domain |\r\n| Account/Group | Enterprise Admins | Forest-wide administrative control |\r\n| Policy | Tier 0 Access Policy | Block access from lower tiers & enable FAST Kerberos Armoring |\r\n\r\n## Rules\r\n\u274C Never log into Tier 0 from lower tiers\r\n\u274C No/Restricted internet browsing/email from Tier 0 systems\r\n\u2705 Only log in from hardened PAWs\r\n\u2705 Separate admin accounts (d-username convention)",
                             "Children": [
                                 {
                                     "Name": "Tier 0 Access Policy",
@@ -657,7 +657,7 @@ let adData = {
                         {
                             "Name": "Tier 1",
                             "Type": "OU",
-                            "Description": "# Tier 1 - Enterprise Server & Application Management\r\n\r\nContains member servers, application infrastructure, and the administrative identities that manage them.",
+                            "Description": "# Tier 1 - Enterprise Server & Application Management\r\n\r\nContains High Risk member servers, application infrastructure, and the administrative identities that manage them.",
                             "Children": [
                                 {
                                     "Name": "Tier 1 Access Policy",
@@ -722,7 +722,7 @@ let adData = {
                                             ]   
                                         },
                                         {
-                                            "Name": "Server Admins",
+                                            "Name": "T1 Server Admins",
                                             "Type": "Group",
                                             "Description": "T1 Server Admin Group",
                                             "Children": []
@@ -730,9 +730,9 @@ let adData = {
                                         {
                                             "Name": "Database Admins",
                                             "Type": "Group",
-                                            "Description": "Database Admin Group e.g. SQL Accounts",
+                                            "Description": "Database Admin Group e.g. SA SQL Accounts",
                                             "Children": []
-                                        },                                         
+                                        }                                         
                                     ]
                                 },
                                 {
@@ -772,7 +772,7 @@ let adData = {
                         {
                             "Name": "Tier 2",
                             "Type": "OU",
-                            "Description": "# Tier 2 - End-User Devices & Support\r\n\r\nContains end-user workstations, laptops, and administrative roles focused on desktop/device support.",
+                            "Description": "# Tier 2 - End-User Devices & Support\r\n\r\nContains Low Risk Servers, end-user workstations, laptops, and administrative roles focused on desktop/device support.",
                             "Children": [
                                 {
                                     "Name": "Tier 2 Access Policy",
@@ -786,15 +786,15 @@ let adData = {
                                     "Description": "Tier 2 Application and Database Servers",
                                     "Children": [
                                         {
-                                            "Name": "MET-APP-01",
+                                            "Name": "MET-AZAE-01",
                                             "Type": "Computer",
-                                            "Description": "Line of Business Server",
+                                            "Description": "Low Risk Regional Server",
                                             "Children": []
                                         },
                                         {
-                                            "Name": "MET-SQL-01",
+                                            "Name": "MET-CF-01",
                                             "Type": "Computer",
-                                            "Description": "Database Server",
+                                            "Description": "Low Risk Convenience Server",
                                             "Children": []
                                         }
                                     ]
@@ -803,13 +803,46 @@ let adData = {
                                     "Name": "Computers",
                                     "Type": "OU",
                                     "Description": "Helpdesk & Administration Workstations",
-                                    "Children": []
+                                    "Children": [
+                                        {
+                                            "Name": "MET-PAW-T2-01",
+                                            "Type": "Computer",
+                                            "Description": "Tier 2 Privileged Access Workstation",
+                                            "Children": []
+                                        },
+                                        {
+                                            "Name": "MET-PAW-T2-02",
+                                            "Type": "Computer",
+                                            "Description": "Tier 2 Privileged Access Workstation",
+                                            "Children": []
+                                        }                                        
+                                    ]
                                 },
                                 {
                                     "Name": "Groups",
                                     "Type": "OU",
                                     "Description": "Tier 2 Workstation Support Groups",
-                                    "Children": []
+                                    "Children": [
+                                        {
+                                            "Name": "Access-T2-Admins",
+                                            "Type": "Group",
+                                            "Description": "Tier 2 Administrator Access Group",
+                                            "Children": [
+                                                {
+                                                    "Name": "john.bruce",
+                                                    "Type": "User",
+                                                    "Description": "Tier 2 Administrator",
+                                                    "Children": []
+                                                }
+                                            ]   
+                                        },
+                                        {
+                                            "Name": "T2 Support Admins",
+                                            "Type": "Group",
+                                            "Description": "T2 Device/Desktop Support Admin Group",
+                                            "Children": []
+                                        }                                        
+                                    ]
                                 },
                                 {
                                     "Name": "Users",
