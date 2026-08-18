@@ -568,7 +568,7 @@ let adData = {
                                             "Description": "Security group for Tier 0 interactive logins",
                                             "Children": [
                                                 {
-                                                    "Name": "d-jsmith",
+                                                    "Name": "d-ssaxena",
                                                     "Type": "User",
                                                     "Description": "Tier 0 Administrator",
                                                     "Children": []
@@ -577,6 +577,12 @@ let adData = {
                                         },
                                         {
                                             "Name": "Domain Admins",
+                                            "Type": "Group",
+                                            "Description": "Native AD Built-in Group",
+                                            "Children": []
+                                        },
+                                        {
+                                            "Name": "Schema Admins",
                                             "Type": "Group",
                                             "Description": "Native AD Built-in Group",
                                             "Children": []
@@ -595,7 +601,7 @@ let adData = {
                                             "Children": []
                                         },
                                         {
-                                            "Name": "MET-CA-01",
+                                            "Name": "MET-ADCS-01",
                                             "Type": "Computer",
                                             "Description": "ADCS Certificate Authority",
                                             "Children": []
@@ -627,11 +633,17 @@ let adData = {
                                     "Description": "Tier 0 Interactive Admin Accounts (d-username)",
                                     "Children": [
                                         {
-                                            "Name": "d-jsmith",
+                                            "Name": "d-ssaxena",
                                             "Type": "User",
                                             "Description": "Tier 0 Administrative Account",
                                             "Children": []
-                                        }
+                                        },
+                                        {
+                                            "Name": "d-bottitr1",
+                                            "Type": "User",
+                                            "Description": "Tier 0 Administrative Account",
+                                            "Children": []
+                                        }                                        
                                     ]
                                 }
                             ]
